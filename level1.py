@@ -1,3 +1,5 @@
+# Basic Decorator
+
 def shout(func):
     def wrapper():
         res = func()

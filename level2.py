@@ -1,3 +1,5 @@
+# Decorator with Arguments in the Wrapped function
+
 def logger(func):
     def wrapper(*args, **kwargs):
         print(f'Calling {func.__name__} with args:{args} kwargs:{kwargs}')

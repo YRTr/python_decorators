@@ -1,3 +1,5 @@
+# Preserve Metadata with functools.wraps
+
 from functools import wraps
 def logger(func):
     @wraps(func)
