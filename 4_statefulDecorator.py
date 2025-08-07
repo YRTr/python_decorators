@@ -1,5 +1,7 @@
 #Stateful Decorator (Function Call Counter)
 
+# Write a decorator @call_counter that counts how many times a function was called and prints the count before each call
+
 from functools import wraps
 def call_counter(f):
     @wraps(f)
