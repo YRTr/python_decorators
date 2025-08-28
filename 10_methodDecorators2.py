@@ -18,12 +18,14 @@ import inspect
 def logger(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if inspect.isfunction(func):
-            print(f'Calling {func.__name__} on instance of {func.__qualname__}')
-        elif isinstance(args[0], type):
-            print(f'Calling {func.__name__}  on class {type.__name__}')
-        elif isinstance(func, staticmethod):
-            print(f'Calling {type(func).__name__} {func.__name__}')
+        if args:
+            first = args[0]
+            if isinstance(first,type):
+                print(f'Calling {func.__name__} on class {first.__name__}')
+            else:
+                print(f'Calling {func.__name__}  on instance of {first.__class__.__name__}')
+        else:
+            print(f'Calling static {func.__name__}')
         return func(*args, **kwargs)
     return wrapper
 
