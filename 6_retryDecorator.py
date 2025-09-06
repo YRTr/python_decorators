@@ -6,17 +6,19 @@ def retry(n):
     def multiple(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            attempts = 0
-            while attempts < n:
+            local_error_handling = None
+            for attempts in range(1, n+1):
                 try:
-                    res = func(*args, **kwargs)
+                    return func(*args, **kwargs)
                 except ValueError as v:
-                    attempts += 1
-                    print(f'Retry {attempts} for {func.__name__} due to {v}')
-                else:
-                    return res
-            print(f'{func.__name__} failed after {n} retries')
-            raise v
+                    local_error_handling = v
+                    if attempts < n:
+                        print(f'Retry {attempts} for {func.__name__} due to {v}')
+                    else:
+                        print(f'{func.__name__} failed after {n} attempts')
+                        raise
+            if local_error_handling is not None:
+                raise local_error_handling
         return wrapper
     return multiple
 
